@@ -17,7 +17,6 @@ import com.itextpdf.layout.element.Tab;
 import com.itextpdf.layout.element.TabStop;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TabAlignment;
-import static com.mycompany.mavenproject1.MergeServlet.DEST;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +28,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static com.mycompany.mavenproject1.MergeServlet.destinationPath;
 
 /**
  *
@@ -53,36 +53,7 @@ public class DeletePageServlet extends HttpServlet {
         String filepath = request.getParameter("path");
         int pageNumberToDelete = int.class.cast(request.getParameter("pageToDelete"));
 
-        File file = new File(DEST);
-        file.getParentFile().mkdirs();
-
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DEST));
-        Document doc = new Document(pdfDoc);
-
-        // Initialize a resultant document outlines in order to copy outlines from the source documents.
-        // Note that outlines still could be copied even if in destination document outlines
-        // are not initialized, by using PdfMerger with mergeOutlines value set as true.
-        pdfDoc.initializeOutlines();
-
-        // Copier contains the additional logic to copy acroform fields to a new page.
-        // PdfPageFormCopier uses some caching logic which can potentially improve performance
-        // in case of the reusing of the same instance.
-        PdfPageFormCopier formCopier = new PdfPageFormCopier();
-
-        // Copy all merging file's pages to the result pdf file 
-        PdfDocument documentToChange = new PdfDocument(new PdfReader(filepath));
-
-        int numberOfPages = documentToChange.getNumberOfPages();
-        for (int i = 1; i <= numberOfPages; i++) {
-            if (i < pageNumberToDelete) {
-                documentToChange.copyPagesTo(i, i, pdfDoc, formCopier);
-            }
-            if (i > pageNumberToDelete) {
-                documentToChange.copyPagesTo(i, i - 1, pdfDoc, formCopier);
-            }
-        }
-
-        doc.close();
+        PdfUtil.DeletePage(pageNumberToDelete, destinationPath, filepath);
 
     }
 

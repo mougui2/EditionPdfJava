@@ -26,7 +26,6 @@ public class FileUploadView {
         if (file != null) {
             FacesMessage message = new FacesMessage("Successful", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
-            Editor.AddImage(file);
         }
     }
 
