@@ -21,7 +21,6 @@ import com.itextpdf.layout.property.TabAlignment;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfStamper;
-import static com.mycompany.mavenproject1.MergeServlet.destinationPath;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
@@ -67,7 +66,7 @@ public class PdfUtil {
         doc.close();
     }
 
-    public static void MergePdf(String pdfAPath, String PdfBPath) throws IOException {
+    public static void MergePdf(String pdfAPath, String PdfBPath, String destinationPath) throws IOException {
         File file = new File(destinationPath);
         file.getParentFile().mkdirs();
 
@@ -144,9 +143,8 @@ public class PdfUtil {
         doc.close();
     }
 
-    public static void SplitPdf(String pathToDoc) throws FileNotFoundException, IOException {
+    public static void SplitPdf(String pathToDoc,String destinationPath) throws FileNotFoundException, IOException {
         // read original pdf file
-        String filename = "example.pdf";
         com.lowagie.text.pdf.PdfReader reader = new com.lowagie.text.pdf.PdfReader(pathToDoc);
 
         // get number of pages
@@ -158,7 +156,7 @@ public class PdfUtil {
         while (i < n) {
 
             // create destination file name
-            String destination = filename.substring(0, filename.indexOf(".pdf")) + "-" + String.format("%03d", i + 1) + ".pdf";
+            String destination = destinationPath.substring(0, destinationPath.indexOf(".pdf")) + "-" + String.format("%03d", i + 1) + ".pdf";
             System.out.println("Writing " + destination);
 
             // create new document with corresponding page size

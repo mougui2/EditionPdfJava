@@ -28,7 +28,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static com.mycompany.mavenproject1.MergeServlet.destinationPath;
 
 /**
  *
@@ -49,10 +48,11 @@ public class DeletePageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //recup pdf puis numero page
+
         String filepath = request.getParameter("path");
         int pageNumberToDelete = int.class.cast(request.getParameter("pageToDelete"));
-
+        File f = new File(filepath);
+        String destinationPath = System.getProperty("user.home") + File.separator + "Téléchargements"+File.separator+f.getName()+".pdf";
         PdfUtil.DeletePage(pageNumberToDelete, destinationPath, filepath);
 
     }
