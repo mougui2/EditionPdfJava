@@ -18,6 +18,7 @@ import com.itextpdf.layout.element.TabStop;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TabAlignment;
 import com.lowagie.text.PageSize;
+import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfStamper;
@@ -135,35 +136,64 @@ public class PdfUtil {
 //        }
 //
 //        doc.close();
-        com.lowagie.text.pdf.PdfReader reader = new com.lowagie.text.pdf.PdfReader(pdfAPath);
-        com.lowagie.text.Document document = new com.lowagie.text.Document(reader.getPageSizeWithRotation(1));
 
-        // create writer and assign document and destination
-        PdfCopy copy1 = new PdfCopy(document, new FileOutputStream(destinationPath));
+
+
+
+//        com.lowagie.text.pdf.PdfReader reader = new com.lowagie.text.pdf.PdfReader(pdfAPath);
+//        com.lowagie.text.Document document = new com.lowagie.text.Document(reader.getPageSizeWithRotation(1));
+//
+//        // create writer and assign document and destination
+//        PdfCopy copy1 = new PdfCopy(document, new FileOutputStream(destinationPath));
+//        document.open();
+//
+//        // read original page and copy to writer
+//        int numberOfPages = document.getPageNumber() + 1;
+//        for (int i = 1; i <= numberOfPages; i++) {
+//            PdfImportedPage page = copy1.getImportedPage(reader, i);
+//            copy1.addPage(page);
+//        }
+//
+//        com.lowagie.text.pdf.PdfReader reader2 = new com.lowagie.text.pdf.PdfReader(pdfBPath);
+//        com.lowagie.text.Document document2 = new com.lowagie.text.Document(reader2.getPageSizeWithRotation(1));
+//        PdfCopy copy2 = new PdfCopy(document2, new FileOutputStream(destinationPath));
+//        document2.open();
+//        numberOfPages = document2.getPageNumber() + 1;
+//        for (int i = 1; i <= numberOfPages; i++) {
+//            PdfImportedPage page = copy2.getImportedPage(reader2, i);
+//            copy1.addPage(page);
+//        }
+//        copy2.close();
+//
+//        copy1.close();
+//        document.close();        
+//        document2.close();
+
+
+        com.lowagie.text.Document document = new com.lowagie.text.Document();
+        com.lowagie.text.pdf.PdfWriter writer = com.lowagie.text.pdf.PdfWriter.getInstance(document, new FileOutputStream(destinationPath));
         document.open();
-
-        // read original page and copy to writer
-        int numberOfPages = document.getPageNumber() + 1;
-        for (int i = 1; i <= numberOfPages; i++) {
-            PdfImportedPage page = copy1.getImportedPage(reader, i);
-            copy1.addPage(page);
-        }
-
-        com.lowagie.text.pdf.PdfReader reader2 = new com.lowagie.text.pdf.PdfReader(pdfBPath);
-        com.lowagie.text.Document document2 = new com.lowagie.text.Document(reader2.getPageSizeWithRotation(1));
-        PdfCopy copy2 = new PdfCopy(document2, new FileOutputStream(destinationPath));
-        document2.open();
-        numberOfPages = document2.getPageNumber() + 1;
-        for (int i = 1; i <= numberOfPages; i++) {
-            PdfImportedPage page = copy2.getImportedPage(reader2, i);
-            copy1.addPage(page);
-        }
-        copy2.close();
-
-        copy1.close();
-        document.close();        
-        document2.close();
-
+        PdfContentByte cb = writer.getDirectContent();
+        
+            com.lowagie.text.pdf.PdfReader reader = new com.lowagie.text.pdf.PdfReader(pdfAPath);
+            for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+                document.newPage();
+                //import the page from source pdf
+                PdfImportedPage page = writer.getImportedPage(reader, i);
+                //add the page to the destination pdf
+                cb.addTemplate(page, 0, 0);
+            }
+            
+            reader = new com.lowagie.text.pdf.PdfReader(pdfBPath);
+            for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+                document.newPage();
+                //import the page from source pdf
+                PdfImportedPage page = writer.getImportedPage(reader, i);
+                //add the page to the destination pdf
+                cb.addTemplate(page, 0, 0);
+            }
+        
+        document.close();
     }
 
     public static void SplitPdf(String pathToDoc, String destinationPath) throws FileNotFoundException, IOException {
