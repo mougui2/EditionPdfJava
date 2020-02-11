@@ -20,6 +20,7 @@ import com.itextpdf.layout.property.TabAlignment;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.persistence.Convert;
@@ -50,9 +51,9 @@ public class DeletePageServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String filepath = request.getParameter("path");
-        int pageNumberToDelete = int.class.cast(request.getParameter("pageToDelete"));
+        int pageNumberToDelete = parseInt(request.getParameter("pageToDelete"));
         File f = new File(filepath);
-        String destinationPath = System.getProperty("user.home") + File.separator + "Téléchargements"+File.separator+f.getName()+".pdf";
+        String destinationPath = System.getProperty("user.home") + File.separator + "Downloads"+File.separator+f.getName()+".pdf";
         PdfUtil.DeletePage(pageNumberToDelete, destinationPath, filepath);
 
     }

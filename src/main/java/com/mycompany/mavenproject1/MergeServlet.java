@@ -35,10 +35,8 @@ public class MergeServlet extends HttpServlet {
         String pdfBPath = request.getParameter("path2");
 
         File f = new File(pdfAPath);
-        String destinationPath = System.getProperty("user.home") + File.separator + "Téléchargements"+File.separator+f.getName()+".pdf";
+        String destinationPath = System.getProperty("user.home") + File.separator + "Downloads"+File.separator+f.getName()+".pdf";
         PdfUtil.MergePdf(pdfAPath,pdfBPath, destinationPath);
-
-        
 
     }
 

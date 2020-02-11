@@ -18,7 +18,7 @@ public class ExtractPageServlet extends HttpServlet {
         int pageNumber = int.class.cast( request.getParameter("page"));
         String filePath = request.getParameter("path");
         File f = new File(filePath);
-        String destinationPath = System.getProperty("user.home") + File.separator + "Téléchargements"+File.separator+f.getName()+".pdf";
+        String destinationPath = System.getProperty("user.home") + File.separator + "Downloads"+File.separator+f.getName()+".pdf";
         PdfUtil.ExtractPage(pageNumber,filePath,destinationPath);
     }
 }
