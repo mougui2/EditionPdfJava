@@ -5,30 +5,14 @@
  */
 package com.mycompany.mavenproject1;
 
-import com.itextpdf.forms.PdfPageFormCopier;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfReader;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.action.PdfAction;
-import com.itextpdf.kernel.pdf.canvas.draw.DashedLine;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Tab;
-import com.itextpdf.layout.element.TabStop;
-import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.TabAlignment;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
-import java.util.TreeMap;
-import javax.persistence.Convert;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static com.mycompany.mavenproject1.MergeServlet.destinationPath;
+import static java.lang.Integer.parseInt;
 
 /**
  *
@@ -51,7 +35,7 @@ public class DeletePageServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //recup pdf puis numero page
         String filepath = request.getParameter("path");
-        int pageNumberToDelete = int.class.cast(request.getParameter("pageToDelete"));
+        int pageNumberToDelete = parseInt( request.getParameter("pageToDelete"));
 
         PdfUtil.DeletePage(pageNumberToDelete, destinationPath, filepath);
 
