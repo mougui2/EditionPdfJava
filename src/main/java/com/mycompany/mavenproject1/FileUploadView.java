@@ -13,6 +13,8 @@ import javax.inject.Named;
 public class FileUploadView {
 
     private UploadedFile file;
+    private UploadedFile file1;
+
 
     public UploadedFile getFile() {
         return file;
@@ -20,6 +22,14 @@ public class FileUploadView {
 
     public void setFile(UploadedFile file) {
         this.file = file;
+    }
+    
+    public UploadedFile getFile1() {
+        return file1;
+    }
+
+    public void setFile1(UploadedFile file) {
+        this.file1 = file;
     }
 
     public void upload() {
