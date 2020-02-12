@@ -4,18 +4,6 @@
  * and open the template in the editor.
  */
 package com.mycompany.mavenproject1;
-import com.itextpdf.forms.PdfPageFormCopier;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfReader;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.action.PdfAction;
-import com.itextpdf.kernel.pdf.canvas.draw.DashedLine;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Tab;
-import com.itextpdf.layout.element.TabStop;
-import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.TabAlignment;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,18 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.nio.file.Files;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * @author Morgan
  */
 @WebServlet(name = "MergeServlet", urlPatterns = {"/MergeServlet"})
 public class MergeServlet extends HttpServlet {
-
-    public static final String destinationPath = "./target/sandbox/merge/mergedDocument.pdf";
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,8 +31,12 @@ public class MergeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        String pdfAPath = request.getParameter("path"); 
+        String pdfBPath = request.getParameter("path2");
 
-        
+        File f = new File(pdfAPath);
+        String destinationPath = System.getProperty("user.home") + File.separator + "Downloads"+File.separator+f.getName()+".pdf";
+        PdfUtil.MergePdf(pdfAPath,pdfBPath, destinationPath);
 
     }
 

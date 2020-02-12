@@ -6,6 +6,11 @@
 package com.mycompany.mavenproject1;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
+import java.util.Map;
+import java.util.TreeMap;
+import javax.persistence.Convert;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,10 +38,11 @@ public class DeletePageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //recup pdf puis numero page
-        String filepath = request.getParameter("path");
-        int pageNumberToDelete = parseInt( request.getParameter("pageToDelete"));
 
+        String filepath = request.getParameter("path");
+        int pageNumberToDelete = parseInt(request.getParameter("pageToDelete"));
+        File f = new File(filepath);
+        String destinationPath = System.getProperty("user.home") + File.separator + "Downloads"+File.separator+f.getName()+".pdf";
         PdfUtil.DeletePage(pageNumberToDelete, destinationPath, filepath);
 
     }
