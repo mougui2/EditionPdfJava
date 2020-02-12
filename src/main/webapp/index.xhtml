@@ -14,57 +14,57 @@
         <p:tabView>
             <p:tab title="Supprimer">
                 <h:outputText value='Supprimer ici une page de votre PDF'/>
-                <p:growl id="messages1" showDetail="true" />
+                
                 <h:panelGrid columns="2" cellpadding="10">
-                    <h:form enctype="multipart/form-data">
+                    <h:form enctype="multipart/form-data" >
+                        <p:inputText value="#{fileUploadView.page}" />
+                        <br />
                         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
                         <br />
-                        <p:commandButton value="Submit" ajax="false" action="/MergeServlet" />
+                        <p:commandButton value="Submit" action="#{fileUploadView.deletePageServlet}" />
                     </h:form>
                 </h:panelGrid>
             </p:tab>
             <p:tab title="Fusionner">
                 <h:outputText value='Fusionner ici deux PDF'/>
-                <p:growl id="messages2" showDetail="true" />
                 <h:panelGrid columns="2" cellpadding="10">
                     <h:form enctype="multipart/form-data">
                         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
-                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+                        <p:fileUpload value="#{fileUploadView.file1}" mode="simple" skinSimple="true"/>
                         <br />
-                        <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" />
+                        <p:commandButton value="Submit" action="#{fileUploadView.mergeServlet}" />
                     </h:form>
                 </h:panelGrid>
             </p:tab>
             <p:tab title="Séparer">
                 <h:outputText value='Séparer ici chaque page de votre PDF'/>
-                <p:growl id="messages3" showDetail="true" />
                 <h:panelGrid columns="2" cellpadding="10">
                     <h:form enctype="multipart/form-data">
                         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
                         <br />
-                        <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" />
+                        <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.splitServlet}" />
                     </h:form>
                 </h:panelGrid>
             </p:tab>
             <p:tab title="Extraire">
                 <h:outputText value='Vous pouvez ici extraire une page de votre PDF'/>
-                <p:growl id="messages4" showDetail="true" />
                 <h:panelGrid columns="2" cellpadding="10">
                     <h:form enctype="multipart/form-data">
+                        <p:inputText value="#{fileUploadView.page}" />
+                        <br />
                         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
                         <br />
-                        <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" />
+                        <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.extractPageServlet}" />
                     </h:form>
                 </h:panelGrid>
             </p:tab>
             <p:tab title="Convertir image">
                 <h:outputText value='Vous pouvez ici convertir une image en PDF'/>
-                <p:growl id="messages5" showDetail="true" />
                 <h:panelGrid columns="2" cellpadding="10">
                     <h:form enctype="multipart/form-data">
                         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
                         <br />
-                        <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" />
+                        <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.convertImageServlet}" />
                     </h:form>
                 </h:panelGrid>
             </p:tab>
