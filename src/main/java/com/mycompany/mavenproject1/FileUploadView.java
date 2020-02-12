@@ -1,5 +1,6 @@
 package com.mycompany.mavenproject1;
 
+import java.io.File;
 import java.io.IOException;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -16,6 +17,8 @@ public class FileUploadView {
 
     private UploadedFile file;
     private UploadedFile file1;
+    
+    public String path = System.getProperty("user.home") + File.separator + "Downloads" + File.separator ;
     
     private String page;
 
@@ -50,34 +53,34 @@ public class FileUploadView {
         }
     }
 
-    public void MergeServlet() throws IOException {
+    public void mergeServlet() throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
-        ec.redirect("MergeServlet?path=" + file.getFileName() + "&path2=" + file1.getFileName());
+        ec.redirect("MergeServlet?path=" +path+ file.getFileNames()+ "&path2=" +path+ file1.getFileName());
     }
 
-    public void DeletePageServlet() throws IOException {
+    public void deletePageServlet() throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
-        ec.redirect("DeletePageServlet?path=" + file.getFileName() + "&page="+page);//TODO
+        ec.redirect("DeletePageServlet?path=" +path+ file.getFileName() + "&page="+page);
     }
 
-    public void SplitServlet() throws IOException {
+    public void splitServlet() throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
-        ec.redirect("SplitServlet?path=" + file.getFileName());
+        ec.redirect("SplitServlet?path=" +path+ file.getFileName());
     }
 
-    public void ExtractPageServlet() throws IOException {
+    public void extractPageServlet() throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
-        ec.redirect("ExtractPageServlet?path=" + file.getFileName() + "&page="+page);
+        ec.redirect("ExtractPageServlet?path="+path+ file.getFileName() + "&page="+page);
     }
 
-    public void ConvertImageServlet() throws IOException {
+    public void convertImageServlet() throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
-        ec.redirect("ConvertImageServlet?path=" + file.getFileName());
+        ec.redirect("ConvertImageServlet?path=" +path+ file.getFileName());
     }
 
     public void handleFileUpload(FileUploadEvent event) {
