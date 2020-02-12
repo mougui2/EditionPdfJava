@@ -5,18 +5,13 @@
  */
 package com.mycompany.mavenproject1;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import static java.lang.Integer.parseInt;
-import java.util.Map;
-import java.util.TreeMap;
-import javax.persistence.Convert;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static com.mycompany.mavenproject1.MergeServlet.destinationPath;
 import static java.lang.Integer.parseInt;
 
 /**

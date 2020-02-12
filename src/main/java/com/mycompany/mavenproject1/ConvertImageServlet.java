@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import javax.ws.rs.Path;
 
 @WebServlet(name = "ConvertImageServlet",urlPatterns = {"/ConvertImageServlet"})
 public class ConvertImageServlet extends HttpServlet {
