@@ -18,7 +18,7 @@ public class FileUploadView {
     private UploadedFile file;
     private UploadedFile file1;
     
-    public String path = System.getProperty("user.home") + File.separator + "Downloads" + File.separator ;
+    private String path = System.getProperty("user.home") + File.separator + "Downloads" + File.separator ;
     
     private String page;
 
@@ -56,13 +56,13 @@ public class FileUploadView {
     public void mergeServlet() throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
-        ec.redirect("MergeServlet?path=" +path+ file.getFileNames()+ "&path2=" +path+ file1.getFileName());
+        ec.redirect("MergeServlet?path=" +path+ file.getFileName()+ "&path2=" +path+ file1.getFileName());
     }
 
     public void deletePageServlet() throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
-        ec.redirect("DeletePageServlet?path=" +path+ file.getFileName() + "&page="+page);
+        ec.redirect("DeletePageServlet?path=" +path+ file.getFileName() + "&pageToDelete="+page);
     }
 
     public void splitServlet() throws IOException {
